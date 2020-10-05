@@ -1,0 +1,30 @@
+package classprogram;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Oracle {
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException{
+		
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "shubham");
+		
+		Statement st =con.createStatement();
+		ResultSet rs =
+				st.executeQuery("select * from Student");
+				
+				while(rs.next()){
+					System.out.println(rs.getInt(1)+"" +rs.getString(2)+" "+rs.getString(3) );
+				}
+		
+		con.close();
+		st.close();
+		rs.close();
+		
+	}
+
+}
