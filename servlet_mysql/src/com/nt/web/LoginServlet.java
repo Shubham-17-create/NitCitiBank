@@ -2,7 +2,6 @@ package com.nt.web;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +25,7 @@ public class LoginServlet extends HttpServlet {
 		loginDao = new LoginDao();
 	}
 
-	protected void dopost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -37,12 +35,12 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			if (loginDao.validate(loginBean)) {
-			//	HttpSession session = request.getSession();
-			//	session.setAttribute("username",username);
+				HttpSession session = request.getSession();
+				session.setAttribute("username", username);
 				response.sendRedirect("loginsuccess.jsp");
 			} else {
-			//	HttpSession session = request.getSession();
-			//	session.setAttribute("username",username);
+	HttpSession session = request.getSession();
+				session.setAttribute("username", username);
 				response.sendRedirect("login.jsp");
 			}
 		} catch (ClassNotFoundException e) {

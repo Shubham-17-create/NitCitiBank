@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 import com.nt.beans.LoginBean;
 
-public class LoginDao {
+public class LoginDao{
 
 	public boolean validate(LoginBean loginBean) throws ClassNotFoundException {
 		boolean status = false;
 
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 
 		try (Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/mysql_database?useSSL=false", "root", "root");
+				.getConnection("jdbc:mysql://localhost:3306/user?useSSL=false", "root", "root");
 
 				// Step 2:Create a statement using connection object
 				PreparedStatement preparedStatement = connection
