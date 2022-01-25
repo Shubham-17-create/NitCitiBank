@@ -1,0 +1,61 @@
+=========================DomparserCreateXml.java============================
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory; import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory; import javax.xml.transform.dom.DOMSource; import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr; import org.w3c.dom.Comment; import org.w3c.dom.Document; import org.w3c.dom.Element;
+
+public class DomParserCreateXml {
+public static void main(String[] args) { try {
+DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance(); DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+Document doc = dBuilder.newDocument();
+// root element
+Element rootElement = doc.createElement("Employees"); doc.appendChild(rootElement);
+
+// Employee element
+Element employee = doc.createElement("Employee"); rootElement.appendChild(employee);
+
+// setting attribute to element
+Attr attr = doc.createAttribute("id"); attr.setValue("1"); employee.setAttributeNode(attr);
+
+ 
+
+// age element
+Element age = doc.createElement("age"); age.appendChild(doc.createTextNode("28")); employee.appendChild(age);
+
+// firstname element
+Element firstname = doc.createElement("firstname"); firstname.appendChild(doc.createTextNode("Ashok")); employee.appendChild(firstname);
+
+// lastname element
+Element lastname = doc.createElement("lastname"); lastname.appendChild(doc.createTextNode("Kumar")); employee.appendChild(lastname);
+
+// role element
+Element role = doc.createElement("role"); role.appendChild(doc.createTextNode("Developer")); employee.appendChild(role);
+
+Comment comment = doc.createComment("This is a comment"); rootElement.appendChild(comment);
+
+ 
+
+
+
+
+form of a
+ 
+// write the content into xml file
+TransformerFactory transformerFactory = TransformerFactory.newInstance(); Transformer transformer = transformerFactory.newTransformer();
+/* DOMSource acts as a holder for a transformation Source tree in the
+
+*	Document Object Model (DOM) tree.
+*/
+DOMSource source = new DOMSource(doc);
+StreamResult result = new StreamResult(new File("D:\\employee.xml")); transformer.transform(source, result);
+// Output to console for testing purpose
+StreamResult consoleResult = new StreamResult(System.out); transformer.transform(source, consoleResult);
+ 
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+}
